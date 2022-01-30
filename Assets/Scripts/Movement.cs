@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] float mainTrust = 1000f;
+    Rigidbody rb;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("thrusting");
+            rb.AddRelativeForce(Vector3.up * mainTrust * Time.deltaTime);
         }
     }
 
