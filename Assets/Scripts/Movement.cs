@@ -6,20 +6,20 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float mainTrust = 1000f;
+    [SerializeField] float rotationTrust = 100f;
     Rigidbody rb;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         ProcessThrust();
         ProcessRotation();
     }
 
-    private void ProcessThrust()
+    void ProcessThrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -27,17 +27,20 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void ProcessRotation()
+    void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("left");
+            ApplyRotation(rotationTrust);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("right");
+            ApplyRotation(-rotationTrust);
         }
     }
 
-
+    private void ApplyRotation(float rotationThisFrame)
+    {
+        transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime);
+    }
 }
